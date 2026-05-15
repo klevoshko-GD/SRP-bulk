@@ -1,0 +1,271 @@
+/* ─── Input wrapper ──────────────────────────────────────────────────────────── */
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: inherit;
+  width: 100%;
+}
+
+/* ─── Label ──────────────────────────────────────────────────────────────────── */
+
+.input-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-base-foreground, #1f1f21);
+  line-height: 1.4;
+}
+
+/* ─── Input box ──────────────────────────────────────────────────────────────── */
+
+.input-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 36px;
+  border-radius: 6px;
+  border: 1px solid var(--color-base-input, #d9dade);
+  background: var(--color-base-card, #ffffff);
+  padding: 4px 12px;
+  gap: 8px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.input-box:focus-within {
+  border-color: var(--color-base-ring, #91959f);
+  box-shadow: 0 0 0 3px rgba(145, 149, 159, 0.25);
+  outline: none;
+}
+
+.input-box.is-error {
+  border-color: var(--color-base-destructive, #dc2626);
+}
+
+.input-box.is-error:focus-within {
+  border-color: var(--color-base-destructive, #dc2626);
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
+}
+
+.input-box.is-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ─── Native input ───────────────────────────────────────────────────────────── */
+
+.input-native {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  color: var(--color-base-foreground, #1f1f21);
+  font-family: inherit;
+  line-height: 1.4;
+  min-width: 0;
+}
+
+.input-native::placeholder {
+  color: var(--color-base-muted-foreground, #91959f);
+}
+
+.input-native:disabled {
+  cursor: not-allowed;
+}
+
+/* ─── Icon slots ─────────────────────────────────────────────────────────────── */
+
+.input-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--color-base-muted-foreground, #91959f);
+  width: 16px;
+  height: 16px;
+}
+
+/* ─── Helper / description text ──────────────────────────────────────────────── */
+
+.input-description {
+  font-size: 12px;
+  color: var(--color-base-muted-foreground, #91959f);
+  line-height: 1.4;
+}
+
+.input-error-message {
+  font-size: 12px;
+  color: var(--color-base-destructive, #dc2626);
+  line-height: 1.4;
+}
+
+/* ─── Inline-label (floating label) input ────────────────────────────────────
+   Follows Material Design 3 text-field compact density (−4) guidelines.
+   Height: 40px  (M3 compact; standard DS input is 36px).
+   Label rests centered at 14px (M3 Body Large equivalent for this DS).
+   On focus / fill it floats to the top at 11px (M3 Body Small, compact).
+   Colors: muted (rest) → foreground/500 (focused or filled) → destructive (error). */
+
+/* ── Container ───────────────────────────────────────────────────────── */
+
+.input-inline-box {
+  position: relative;
+  height: 40px;             /* M3 compact density (−4): 40dp                */
+  border-radius: 6px;
+  border: 1px solid var(--color-base-input, #d9dade);
+  background: var(--color-base-card, #ffffff);
+  display: flex;
+  align-items: center;      /* vertically centre the trailing slot           */
+  transition: border-color 0.15s, box-shadow 0.15s;
+  cursor: text;
+}
+
+.input-inline-box:focus-within,
+.input-inline-box.is-focused {
+  border-color: var(--color-base-ring, #91959f);
+  box-shadow: 0 0 0 3px rgba(145, 149, 159, 0.25);
+  outline: none;
+}
+
+.input-inline-box.is-error {
+  border-color: var(--color-base-destructive, #dc2626);
+  box-shadow: none;
+}
+
+.input-inline-box.is-error:focus-within,
+.input-inline-box.is-error.is-focused {
+  border-color: var(--color-base-destructive, #dc2626);
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
+}
+
+.input-inline-box.is-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ── Inner content area (label + native input) ───────────────────────── */
+
+.input-inline-content {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  align-self: stretch;      /* fill full 40px height for absolute children  */
+}
+
+/* ── Floating label ──────────────────────────────────────────────────── */
+/*
+   Resting  : vertically centered at 14px — acts as the visual placeholder.
+              (M3 Body Large equivalent for this DS, compact density)
+   Floating : snaps to top at 4px, shrinks to 11px.
+              (M3 Body Small at compact density)
+   Never uppercase; normal → medium weight on float.                     */
+
+.input-inline-label {
+  position: absolute;
+  left: 12px;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;           /* M3 Body Large (DS body size)                 */
+  font-weight: 400;
+  color: var(--color-base-muted-foreground, #91959f);
+  pointer-events: none;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition:
+    top        0.15s ease,
+    transform  0.15s ease,
+    font-size  0.15s ease,
+    font-weight 0.15s ease,
+    color      0.15s ease;
+}
+
+/* Floating trigger: focus OR value present */
+.input-inline-box:focus-within .input-inline-label,
+.input-inline-box.is-filled    .input-inline-label,
+.input-inline-box.is-focused   .input-inline-label {
+  top: 4px;                  /* 4px from box top — M3 compact floating pos   */
+  transform: translateY(0);
+  font-size: 11px;           /* M3 Body Small at compact density             */
+  font-weight: 500;
+  color: var(--color-base-foreground, #1f1f21);
+}
+
+/* Error → destructive color in all states */
+.input-inline-box.is-error .input-inline-label,
+.input-inline-box.is-error:focus-within .input-inline-label,
+.input-inline-box.is-error.is-focused   .input-inline-label {
+  color: var(--color-base-destructive, #dc2626);
+}
+
+/* ── Native input ────────────────────────────────────────────────────── */
+/*
+   Sits in the lower portion of the 40px container (bottom 20px).
+   Invisible (zero opacity) when resting so the floating label acts as
+   the placeholder; revealed as soon as the label floats.
+   Layout: floating label occupies ~4–17px, gap ~2px, input 19–39px.    */
+
+.input-inline-native {
+  position: absolute;
+  left: 12px;
+  right: 0;
+  bottom: 1px;
+  height: 20px;             /* lower half of the 40px box                   */
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;           /* M3 Body Large — same as resting label         */
+  color: var(--color-base-foreground, #1f1f21);
+  font-family: inherit;
+  line-height: 1;
+  width: calc(100% - 12px);
+  padding: 0;
+  opacity: 0;
+  transition: opacity 0.1s ease;
+}
+
+/* Reveal input text once label is floating */
+.input-inline-box:focus-within .input-inline-native,
+.input-inline-box.is-filled    .input-inline-native,
+.input-inline-box.is-focused   .input-inline-native {
+  opacity: 1;
+}
+
+.input-inline-native::placeholder {
+  color: var(--color-base-muted-foreground, #91959f);
+  opacity: 0;                    /* hide placeholder — label IS the hint */
+}
+
+.input-inline-box:focus-within .input-inline-native::placeholder,
+.input-inline-box.is-focused   .input-inline-native::placeholder {
+  opacity: 1;                    /* show placeholder while actively typing in empty field */
+  transition: opacity 0.1s ease 0.05s;
+}
+
+.input-inline-native:disabled {
+  cursor: not-allowed;
+}
+
+/* ── Trailing slot (clear button, chevron, etc.) ─────────────────────── */
+
+.input-inline-trailing {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 10px 0 6px;
+  flex-shrink: 0;
+}
+
+/* ── Error message below the box ─────────────────────────────────────── */
+
+.input-inline-error {
+  font-size: 12px;
+  color: var(--color-base-destructive, #dc2626);
+  line-height: 1.4;
+  margin-top: 4px;
+}

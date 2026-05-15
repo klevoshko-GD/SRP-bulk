@@ -1,0 +1,106 @@
+/* ─── Toggle With Text ────────────────────────────────────────────────────────
+   Figma: DS–Sales Revenue Projections / node 53:9670
+   Sized to match Shadcn/Radix Switch (h-5 w-9 / size-4):
+   Track: 36×20px pill, 2px padding, border-radius 10px (full pill).
+   Thumb: 16×16px white circle.
+   OFF → gray track (#e0e0e0), thumb at left edge.
+   ON  → primary-blue track (#0069b4), thumb at right edge.
+   Focus → 2px solid primary-blue outline around track.
+   Disabled → track opacity 0.5, label color muted.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+/* ─── Wrapper ─────────────────────────────────────────────────────────────── */
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+  font-family: inherit;
+  position: relative;
+}
+
+.toggle--disabled {
+  cursor: not-allowed;
+}
+
+/* ─── Hidden native input — used for a11y and keyboard focus ──────────────── */
+
+.toggle__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ─── Track ───────────────────────────────────────────────────────────────── */
+
+.toggle__track {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 20px;
+  padding: 2px;
+  border-radius: 10px;
+  background-color: var(--color-toggle-off, #e0e0e0);
+  transition: background-color 0.2s ease;
+  /* Focus ring rendered on track when input is focused */
+}
+
+/* ON state — track turns primary-blue */
+.toggle--on .toggle__track {
+  background-color: var(--color-base-primary, #0069b4);
+}
+
+/* Focus ring — visible keyboard focus on the track */
+.toggle__input:focus-visible + .toggle__track,
+:has(.toggle__input:focus-visible) .toggle__track {
+  outline: 2px solid var(--color-base-primary, #0069b4);
+  outline-offset: 2px;
+}
+
+/* Disabled — fade track */
+.toggle--disabled .toggle__track {
+  opacity: 0.5;
+}
+
+/* ─── Thumb ───────────────────────────────────────────────────────────────── */
+
+.toggle__thumb {
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transform: translateX(0);
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+/* ON → slide thumb to right: track(36) - padding(2) - padding(2) - thumb(16) = 16px */
+.toggle--on .toggle__thumb {
+  transform: translateX(16px);
+}
+
+/* ─── Labels ──────────────────────────────────────────────────────────────── */
+
+.toggle__label {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--color-toggle-label, #4a4a4a);
+  transition: color 0.15s;
+}
+
+.toggle--disabled .toggle__label {
+  color: var(--color-base-muted-foreground, #8f8f8f);
+}

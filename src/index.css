@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+/* ── Tailwind v4 ──────────────────────────────────────────────────────────── */
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* ── Dark-mode variant ───────────────────────────────────────────────────── */
+@custom-variant dark (&:is(.dark *));
+
+/* ── Theme mapping ───────────────────────────────────────────────────────── */
+@theme inline {
+  --color-background:             var(--background);
+  --color-foreground:             var(--foreground);
+  --color-card:                   var(--card);
+  --color-card-foreground:        var(--card-foreground);
+  --color-popover:                var(--popover);
+  --color-popover-foreground:     var(--popover-foreground);
+  --color-primary:                var(--primary);
+  --color-primary-foreground:     var(--primary-foreground);
+  --color-secondary:              var(--secondary);
+  --color-secondary-foreground:   var(--secondary-foreground);
+  --color-muted:                  var(--muted);
+  --color-muted-foreground:       var(--muted-foreground);
+  --color-accent:                 var(--accent);
+  --color-accent-foreground:      var(--accent-foreground);
+  --color-destructive:            var(--destructive);
+  --color-border:                 var(--border);
+  --color-input:                  var(--input);
+  --color-ring:                   var(--ring);
+
+  --radius-sm:  calc(var(--radius) * 0.6);
+  --radius-md:  calc(var(--radius) * 0.8);
+  --radius-lg:  var(--radius);
+  --radius-xl:  calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+}
+
+/* ── Storybook design tokens ─────────────────────────────────────────────── */
+:root {
+  --color-base-background: #ffffff;
+  --color-base-foreground: #1f1f21;
+  --color-base-card: #ffffff;
+  --color-base-primary: #0069b4;
+  --color-base-primary-foreground: #f7f8f8;
+  --color-base-secondary: #f5f5f5;
+  --color-base-secondary-foreground: #41434b;
+  --color-base-muted: #f7f8f8;
+  --color-base-muted-foreground: #91959f;
+  --color-base-accent: #eeeef0;
+  --color-base-border: #d9dade;
+  --color-base-input: #d9dade;
+  --color-base-destructive: #dc2626;
+  --color-base-destructive-foreground: #fef2f2;
+  --color-brand-mariner-700: #005e9f;
+  --color-brand-mariner-800: #004f87;
+  --color-brand-mariner-900: #003e6b;
+  --color-buttons-btn-default-background: #0069b4;
+  --color-buttons-btn-default-border: #0069b4;
+  --color-buttons-btn-default-text: #ffffff;
+  --color-buttons-btn-secondary-background: #eeeef0;
+  --color-buttons-btn-secondary-text: #202020;
+  --color-buttons-btn-outline-background: #ffffff;
+  --color-buttons-btn-outline-border: #d9dade;
+  --color-buttons-btn-outline-text: #202020;
+  --color-buttons-btn-outline-brand-background: #ffffff;
+  --color-buttons-btn-outline-brand-border: #0069b4;
+  --color-buttons-btn-outline-brand-text: #0069b4;
+  --color-buttons-btn-outline-secondary-background: #ffffff;
+  --color-buttons-btn-outline-secondary-border: #d9dade;
+  --color-buttons-btn-outline-secondary-text: #202020;
+  --color-buttons-btn-ghost-background: rgba(255,255,255,0.05);
+  --color-buttons-btn-ghost-text: #202020;
+  --color-buttons-btn-ghost-secondary-text: #0069b4;
+  --color-buttons-btn-link-text: #0069b4;
+  --color-buttons-btn-destructive-background: #fee2e2;
+  --color-buttons-btn-destructive-text: #dc2626;
+  --color-forecast-optimistic: #3d854e;
+  --color-forecast-realistic: #d9993a;
+  --color-forecast-pessimistic: #ce4e45;
+  --color-status-error-background: #fef2f2;
+}
+
+/* ── Light theme ─────────────────────────────────────────────────────────── */
+:root {
+  --radius: 0.375rem;
+
+  --background:           #F7F8FA;
+  --foreground:           #0F172A;
+  --card:                 #FFFFFF;
+  --card-foreground:      #0F172A;
+  --popover:              #FFFFFF;
+  --popover-foreground:   #0F172A;
+  --secondary:            #F1F5F9;
+  --secondary-foreground: #334155;
+  --muted:                #F1F5F9;
+  --muted-foreground:     #64748B;
+  --accent:               #EEF2FF;
+  --accent-foreground:    #4338CA;
+  --destructive:          #B91C1C;
+  --border:               #E5E7EB;
+  --input:                #E5E7EB;
+  --ring:                 #4F46E5;
+
+  /* SRP brand indigo */
+  --primary:              #4F46E5;
+  --primary-foreground:   #FFFFFF;
+
+  /* Scenario colours */
+  --c-pessimistic:        #B45309;
+  --c-pessimistic-bg:     #FEF3C7;
+  --c-realistic:          #1D4ED8;
+  --c-realistic-bg:       #DBEAFE;
+  --c-optimistic:         #047857;
+  --c-optimistic-bg:      #D1FAE5;
+}
+
+/* ── Base defaults ───────────────────────────────────────────────────────── */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    box-sizing: border-box;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .mono {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+}

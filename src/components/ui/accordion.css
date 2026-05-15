@@ -1,0 +1,283 @@
+/* ─── Accordion ────────────────────────────────────────────────────────────────
+   Ref: Figma DS (AI) node 34:526
+   Size: 360px wide · Item trigger height: 52px · Content padding-bottom: 20px
+   ─────────────────────────────────────────────────────────────────────────── */
+
+.accordion {
+  width: 100%;
+  border: 1px solid var(--color-base-border, #d9dade);
+  border-radius: 5px;
+  overflow: hidden;
+  background-color: var(--color-base-card, #ffffff);
+}
+
+/* ─── Item ────────────────────────────────────────────────────────────────── */
+
+.accordion-item {
+  border-bottom: 1px solid var(--color-base-border, #d9dade);
+}
+
+.accordion-item:last-child {
+  border-bottom: none;
+}
+
+/* ─── Trigger ─────────────────────────────────────────────────────────────── */
+
+.accordion-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 52px;
+  padding: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--color-base-foreground, #1f1f21);
+  transition: background-color 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.accordion-trigger:hover {
+  background-color: var(--color-base-muted, #f7f8f8);
+}
+
+.accordion-trigger:focus-visible {
+  outline: 2px solid var(--color-base-primary, #0069b4);
+  outline-offset: -2px;
+  border-radius: 4px;
+}
+
+.accordion-trigger:active {
+  background-color: var(--color-base-accent, #eeeef0);
+}
+
+.accordion-item--disabled .accordion-trigger {
+  cursor: not-allowed;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* ─── Trigger text ────────────────────────────────────────────────────────── */
+
+.accordion-trigger__text {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ─── Chevron icon ────────────────────────────────────────────────────────── */
+
+.accordion-trigger__chevron {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: var(--color-base-muted-foreground, #91959f);
+  transition: transform 200ms ease-out;
+}
+
+.accordion-item--open .accordion-trigger__chevron {
+  transform: rotate(180deg);
+}
+
+/* ─── Content — CSS grid animation trick ─────────────────────────────────── */
+/* overflow: hidden on the GRID CONTAINER clips child overflow when row = 0fr */
+
+.accordion-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  transition: grid-template-rows 200ms ease-out;
+}
+
+.accordion-content--open {
+  grid-template-rows: 1fr;
+}
+
+/* grid child — must have min-height:0 and no padding so grid can collapse it */
+.accordion-content__inner {
+  min-height: 0;
+}
+
+/* padding lives here so it doesn't prevent the grid collapse */
+.accordion-content__body {
+  padding: 0 16px 20px;
+  font-size: 14px;
+  line-height: 24px;
+  color: var(--color-base-muted-foreground, #91959f);
+}
+
+/* ─── Timesheets variant ──────────────────────────────────────────────────────
+   Ref: Figma DS (AI) node 40000016:54479
+   Border: light-blue · Radius: 8px · Trigger padding: 24px sides · 16px top/bottom
+   ─────────────────────────────────────────────────────────────────────────── */
+
+.accordion--timesheets {
+  background-color: var(--color-base-background, #ffffff);
+  border-color: var(--color-brand-mariner-100, #dbecf6);
+  border-radius: 8px;
+}
+
+.accordion--timesheets .accordion-trigger {
+  padding: 16px 24px;
+  min-height: 74px;
+  align-items: center;
+}
+
+.accordion--timesheets .accordion-trigger:hover {
+  background-color: #f0f9ff;
+}
+
+.accordion--timesheets .accordion-content__body {
+  padding: 0 24px 24px;
+}
+
+/* Chevron — brand blue */
+.accordion--timesheets .accordion-trigger__chevron {
+  color: var(--color-base-primary, #0069b4);
+}
+
+/* Project header inside trigger */
+.accordion-project__title {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #4a4a4a;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.accordion-project__subtitle {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: #4a4a4a;
+  margin: 0;
+}
+
+/* ─── Time Reports variant ───────────────────────────────────────────────────
+   Removes body padding so the table renders flush inside the accordion.
+   Applied as: className="accordion--timesheets accordion--time-reports"
+   ─────────────────────────────────────────────────────────────────────────── */
+
+.accordion--time-reports .accordion-content__body {
+  padding: 0;
+}
+
+/* ─── SRP (Sales Revenue Projections) variant ────────────────────────────────
+   Ref: Figma DS (AI) node 40000016:54522
+   4 variants: Active · Draft · Inactive Project · Archived Opportunity
+   All triggers: 88px height · 24px side padding · white text + badge in subtitle row
+   ─────────────────────────────────────────────────────────────────────────── */
+
+/* ── Shared geometry for all SRP triggers ─────────────────────────────────── */
+.accordion-item--srp-active > .accordion-trigger,
+.accordion-item--srp-draft > .accordion-trigger,
+.accordion-item--srp-inactive > .accordion-trigger,
+.accordion-item--srp-archived > .accordion-trigger {
+  min-height: 88px;
+  padding: 16px 24px;
+  align-items: center;
+  color: var(--color-base-primary-foreground, #f7f8f8);
+  border-radius: 10px 10px 0 0;
+}
+
+/* Round all corners when accordion is closed */
+.accordion-item--srp-active:not(.accordion-item--open) > .accordion-trigger,
+.accordion-item--srp-draft:not(.accordion-item--open) > .accordion-trigger,
+.accordion-item--srp-inactive:not(.accordion-item--open) > .accordion-trigger,
+.accordion-item--srp-archived:not(.accordion-item--open) > .accordion-trigger {
+  border-radius: 10px;
+}
+
+/* Active — brand blue (base-primary), no badge */
+.accordion-item--srp-active > .accordion-trigger {
+  background-color: var(--color-base-primary, #0069b4);
+}
+.accordion-item--srp-active > .accordion-trigger:hover {
+  background-color: var(--color-brand-mariner-700, #005e9f);
+}
+.accordion-item--srp-active > .accordion-trigger:active {
+  background-color: var(--color-brand-mariner-800, #004f87);
+}
+
+/* Draft — mariner-800, slightly darker than brand blue */
+.accordion-item--srp-draft > .accordion-trigger {
+  background-color: var(--color-brand-mariner-800, #004f87);
+}
+.accordion-item--srp-draft > .accordion-trigger:hover {
+  background-color: var(--color-brand-mariner-900, #003e6b);
+}
+
+/* Inactive Project — secondary-foreground grey @40% opacity, badge with circle-minus */
+.accordion-item--srp-inactive > .accordion-trigger {
+  background-color: rgba(65, 67, 75, 0.4); /* --color-base-secondary-foreground @40% */
+}
+
+/* Archived Opportunity — darker grey (secondary-foreground), badge with archive icon */
+.accordion-item--srp-archived > .accordion-trigger {
+  background-color: var(--color-base-secondary-foreground, #41434b);
+}
+.accordion-item--srp-archived > .accordion-trigger:hover {
+  background-color: var(--color-base-foreground, #1f1f21);
+}
+
+/* Chevron — white @75% for all SRP variants, full white when open */
+.accordion-item--srp-active > .accordion-trigger .accordion-trigger__chevron,
+.accordion-item--srp-draft > .accordion-trigger .accordion-trigger__chevron,
+.accordion-item--srp-inactive > .accordion-trigger .accordion-trigger__chevron,
+.accordion-item--srp-archived > .accordion-trigger .accordion-trigger__chevron {
+  color: rgba(255, 255, 255, 0.7);
+}
+.accordion-item--srp-active.accordion-item--open > .accordion-trigger .accordion-trigger__chevron,
+.accordion-item--srp-draft.accordion-item--open > .accordion-trigger .accordion-trigger__chevron,
+.accordion-item--srp-inactive.accordion-item--open > .accordion-trigger .accordion-trigger__chevron,
+.accordion-item--srp-archived.accordion-item--open > .accordion-trigger .accordion-trigger__chevron {
+  color: var(--color-base-primary-foreground, #f7f8f8);
+}
+
+/* ── SRP tag pill (ghost, on dark backgrounds) ──────────────────────────── */
+.srp-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  background-color: rgba(255, 255, 255, 0.15);
+  color: var(--color-base-primary-foreground, #f7f8f8);
+  white-space: nowrap;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* ── SRP action button (ghost, white on dark bg) ────────────────────────── */
+.srp-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: transparent;
+  color: var(--color-base-primary-foreground, #f7f8f8);
+  transition: background-color 0.15s;
+  white-space: nowrap;
+}
+.srp-action-btn:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+.srp-action-btn--icon {
+  padding: 6px 8px;
+}

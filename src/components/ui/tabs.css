@@ -1,0 +1,108 @@
+/* ─── Tabs (segmented control) ────────────────────────────────────────────────
+   Figma: DS–Sales Revenue Projections / Tables / node 59:25693
+   Container: primary-blue bg, 4px padding, 8px border-radius.
+   Active item: white fill, blue text, 4px radius, soft shadow.
+   Inactive item: transparent, white text.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+.tabs {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  padding: 4px;
+  background-color: var(--color-base-primary, #0069b4);
+  border-radius: 8px;
+}
+
+/* ─── Item (tab button) ───────────────────────────────────────────────────── */
+
+.tabs__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  min-height: 32px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+  outline: none;
+}
+
+.tabs__item:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.7);
+  outline-offset: 1px;
+}
+
+.tabs__item:hover:not(.tabs__item--active) {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+/* ─── Active state ────────────────────────────────────────────────────────── */
+
+.tabs__item--active {
+  background-color: #ffffff;
+  color: var(--color-base-primary, #0069b4);
+  font-weight: 700;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.10),
+    0 1px 2px -1px rgba(0, 0, 0, 0.10);
+  cursor: default;
+}
+
+/* ─── Label ───────────────────────────────────────────────────────────────── */
+
+.tabs__label {
+  /* text node — no extra styles needed, inherits from .tabs__item */
+}
+
+/* ─── Counter badge ───────────────────────────────────────────────────────── */
+
+.tabs__counter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  background-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+}
+
+.tabs__item--active .tabs__counter {
+  background-color: var(--color-base-muted, #f7f8f8);
+  color: var(--color-base-foreground, #1f1f21);
+}
+
+/* ─── Size: Small ─────────────────────────────────────────────────────────── */
+
+.tabs--sm {
+  padding: 3px;
+  border-radius: 6px;
+}
+
+.tabs--sm .tabs__item {
+  padding: 3px 8px;
+  min-height: 26px;
+  font-size: 12px;
+  line-height: 18px;
+  border-radius: 3px;
+}
+
+.tabs--sm .tabs__counter {
+  min-width: 14px;
+  height: 14px;
+  font-size: 10px;
+}
